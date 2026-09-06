@@ -2,10 +2,10 @@
 
 ## Projeção da taxa de reposição de renda com enfoque na Região Sudeste
 
-**Aluno(a):** Lidiane Nunes da Silva Celestino
-**Curso:** Ciências de Dados e Analytics
-**Instituição:** PUC-Rio  
-**Plataforma:** Databricks Free Edition  
+**Aluno(a):** Lidiane Nunes da Silva Celestino<br>
+**Curso:** Ciências de Dados e Analytics<br>
+**Instituição:** PUC-Rio<br>
+**Plataforma:** Databricks Free Edition<br>
 **Status:** Em desenvolvimento
 
 ---
