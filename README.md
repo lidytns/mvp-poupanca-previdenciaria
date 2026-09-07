@@ -41,13 +41,13 @@ Este projeto aplica conceitos de Engenharia de Dados na construção de um pipel
 
 ## 2. Descrição do problema
 
-A manutenção do padrão de vida durante a aposentadoria depende, entre outros fatores, da capacidade de acumulação de recursos ao longo da vida profissional. Entretanto, apenas conhecer o volume de contribuições ou o patrimônio acumulado não permite compreender se o nível atual de poupança será suficiente para preservar a renda dos participantes na aposentadoria.
+A manutenção do padrão de vida durante a aposentadoria depende, entre outros fatores, da capacidade de acumulação de recursos ao longo da vida profissional. Entretanto, apenas conhecer o volume de contribuições ou o patrimônio acumulado não permite compreender se o nível atual de poupança será suficiente para preservar a renda dos participantes durante a aposentadoria.
 
-Este MVP pretende analisar dados públicos da previdência complementar brasileira e indicadores socioeconômicos da Região Sudeste. Por meio de simulações, será estimado qual percentual da renda atual poderá ser reposto futuramente caso sejam mantidos determinados níveis de contribuição.
+Este MVP pretende analisar dados públicos da previdência complementar brasileira e indicadores socioeconômicos da Região Sudeste. Por meio de simulações, será estimado qual percentual de reposição da renda atual poderá ser alcançado futuramente, caso sejam mantidos os níveis atuais de contribuição.
 
 O trabalho não incluirá benefícios ou contribuições do Regime Geral de Previdência Social - INSS. Os resultados representarão exclusivamente a renda potencial proporcionada pela previdência complementar.
 
-As projeções serão apresentadas como cenários estimados, e não como garantias individuais de benefício futuro. Todas as premissas e fórmulas serão documentadas para permitir a conferência e reprodução dos cálculos.
+As projeções serão apresentadas como cenários estimados, e não como garantias individuais de benefício futuro. Todas as premissas e fórmulas utilizadas serão documentadas para permitir a conferência e a reprodução dos cálculos.
 
 ## 3. Objetivos
 
