@@ -73,16 +73,32 @@ Construir um pipeline de dados na nuvem que integre informações públicas da p
 
 ## 4. Perguntas de negócio
 
-1. Como evoluíram as contribuições e os recursos acumulados na previdência complementar?
-2. Qual é a participação dos segmentos aberto e fechado?
-3. Qual é o perfil dos participantes da previdência fechada por idade, sexo e situação no plano?
-4. Como renda, idade e situação de trabalho diferem entre os estados do Sudeste?
-5. Qual patrimônio poderá ser acumulado caso determinados níveis de contribuição sejam mantidos?
-6. Qual renda mensal complementar esse patrimônio poderá proporcionar na aposentadoria?
-7. Qual percentual da renda de referência poderá ser reposto pela previdência complementar?
-8. Como a taxa de reposição muda conforme idade, contribuição, rentabilidade e prazo?
-9. Qual contribuição seria necessária para alcançar metas de reposição de 40%, 60% ou 80%?
-10. Quais limitações impedem estimar individualmente a situação de toda a população?
+4.1 Estrutura da previdência complementar
+
+1. Como evoluíram as contribuições e os recursos acumulados nos segmentos aberto e fechado da previdência complementar?
+2. Qual é a participação de cada segmento no sistema de previdência complementar brasileiro, considerando apenas indicadores conceitualmente compatíveis?
+
+4.2 Perfil dos participantes
+
+3. Qual é o perfil dos participantes da previdência complementar fechada por idade, sexo e situação no plano?
+4. Quais informações sobre o perfil dos participantes da previdência aberta estão disponíveis nas bases públicas e quais limitações impedem uma análise equivalente à realizada para a previdência fechada?
+   
+4.3 Análise regional
+
+5. Como os indicadores de renda, idade e situação de trabalho diferem entre Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo?
+6. Como as informações disponíveis sobre previdência complementar aberta e fechada podem ser relacionadas ao contexto socioeconômico da Região Sudeste, respeitando a granularidade e as limitações territoriais de cada base?
+   
+4.4 Projeções previdenciárias
+
+7. Mantidos determinados níveis de contribuição, qual patrimônio poderá ser acumulado na previdência aberta e na previdência fechada, considerando as características específicas de cada segmento?
+8. Qual renda mensal complementar o patrimônio projetado poderá proporcionar na aposentadoria em diferentes cenários?
+9. Qual percentual da renda de referência poderá ser reposto exclusivamente pela previdência complementar aberta ou fechada?
+10. Como a taxa de reposição se altera conforme idade, contribuição, rentabilidade, prazo de acumulação e, no segmento fechado, eventual contribuição do patrocinador?
+11. Qual contribuição seria necessária, em cada segmento, para alcançar metas de reposição de 40%, 60% ou 80% da renda de referência?
+
+4.5 Limitações
+
+12. Quais limitações das bases públicas impedem que os resultados agregados sejam interpretados como previsões individuais para toda a população?
 
 As perguntas que não puderem ser respondidas serão mantidas e discutidas na conclusão e na autoavaliação, conforme a disponibilidade e a granularidade das bases encontradas.
 
