@@ -1,205 +1,562 @@
-# MVP - Poupança Previdenciária Complementar
+MVP — Poupança Previdenciária Complementar
 
-## Projeção da taxa de reposição de renda com enfoque na Região Sudeste
+Projeção da taxa de reposição de renda com enfoque na Região Sudeste
 
-**Aluno(a):** Lidiane Nunes da Silva Celestino<br>
-**Curso:** Ciências de Dados e Analytics<br>
-**Instituição:** PUC-Rio<br>
-**Plataforma:** Databricks Free Edition<br>
-**Status:** Em desenvolvimento
+Aluna: Lidiane Nunes da Silva Celestino
+Curso: Ciências de Dados e Analytics
+Instituição: PUC-Rio
+Plataforma: Databricks Free Edition
+Status: Pipeline Bronze–Silver–Gold concluído; análises e documentação final em andamento
 
----
+Sumário
 
-## Sumário
+Introdução
 
-1. [Introdução](#1-introdução)
-2. [Descrição do problema](#2-descrição-do-problema)
-3. [Objetivos](#3-objetivos)
-4. [Perguntas de negócio](#4-perguntas-de-negócio)
-5. [Escopo do projeto](#5-escopo-do-projeto)
-6. [Fontes e coleta dos dados](#6-fontes-e-coleta-dos-dados)
-7. [Arquitetura do pipeline](#7-arquitetura-do-pipeline)
-8. [Modelagem dos dados](#8-modelagem-dos-dados)
-9. [Processo de carga e transformação](#9-processo-de-carga-e-transformação)
-10. [Análise da qualidade dos dados](#10-análise-da-qualidade-dos-dados)
-11. [Análise e solução do problema](#11-análise-e-solução-do-problema)
-12. [Simulação da taxa de reposição](#12-simulação-da-taxa-de-reposição)
-13. [Memória de cálculo](#13-memória-de-cálculo)
-14. [Conclusão](#14-conclusão)
-15. [Autoavaliação](#15-autoavaliação)
-16. [Trabalhos futuros](#16-trabalhos-futuros)
-17. [Como reproduzir o projeto](#17-como-reproduzir-o-projeto)
-18. [Referências](#18-referências)
+Descrição do problema
 
----
+Objetivos
 
-## 1. Introdução
+Perguntas de negócio
+
+Escopo do projeto
+
+Fontes e coleta dos dados
+
+Arquitetura do pipeline
+
+Modelagem dos dados
+
+Processo de carga e transformação
+
+Qualidade dos dados
+
+Solução analítica
+
+Simulação da taxa de reposição
+
+Memória de cálculo
+
+Resultados parciais
+
+Limitações
+
+Autoavaliação
+
+Trabalhos futuros
+
+Como reproduzir o projeto
+
+Estrutura do repositório
+
+Referências
+
+1. Introdução
 
 A previdência complementar é um instrumento de acumulação de recursos destinado à formação de uma renda adicional para a aposentadoria. No Brasil, ela está dividida em dois segmentos: previdência complementar aberta, acessível ao público em geral, e previdência complementar fechada, destinada a grupos vinculados a empresas, associações ou outras entidades instituidoras.
 
-Este projeto aplica conceitos de Engenharia de Dados na construção de um pipeline em nuvem, utilizando dados públicos para analisar a poupança previdenciária complementar brasileira e estimar seu potencial de reposição da renda durante a aposentadoria.
+Este projeto aplica conceitos de Engenharia e Ciência de Dados na construção de um pipeline em nuvem. Dados públicos da Superintendência Nacional de Previdência Complementar (PREVIC), da Superintendência de Seguros Privados (SUSEP) e do Instituto Brasileiro de Geografia e Estatística (IBGE) são ingeridos, tratados, integrados e transformados em tabelas analíticas.
 
-## 2. Descrição do problema
+O resultado central é uma simulação da taxa potencial de reposição da renda por meio da previdência complementar aberta, com referência nos estados do Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo.
 
-A manutenção do padrão de vida durante a aposentadoria depende, entre outros fatores, da capacidade de acumulação de recursos ao longo da vida profissional. Entretanto, apenas conhecer o volume de contribuições ou o patrimônio acumulado não permite compreender se o nível atual de poupança será suficiente para preservar a renda dos participantes durante a aposentadoria.
+2. Descrição do problema
 
-Este MVP pretende analisar dados públicos da previdência complementar brasileira e indicadores socioeconômicos da Região Sudeste. Por meio de simulações, será estimado qual percentual de reposição da renda atual poderá ser alcançado futuramente, caso sejam mantidos os níveis atuais de contribuição.
+A manutenção do padrão de vida durante a aposentadoria depende, entre outros fatores, da capacidade de acumulação de recursos ao longo da vida profissional. Entretanto, conhecer apenas o volume de contribuições ou o patrimônio acumulado não permite avaliar se o nível de poupança será suficiente para preservar a renda durante a aposentadoria.
 
-O trabalho não incluirá benefícios ou contribuições do Regime Geral de Previdência Social - INSS. Os resultados representarão exclusivamente a renda potencial proporcionada pela previdência complementar.
+Este MVP analisa dados públicos da previdência complementar brasileira e indicadores socioeconômicos da Região Sudeste. A partir dos níveis médios de contribuição observados na previdência aberta em 2025, são projetados o patrimônio futuro, a renda mensal complementar e o percentual de reposição de uma renda utilizada como referência.
 
-As projeções serão apresentadas como cenários estimados, e não como garantias individuais de benefício futuro. Todas as premissas e fórmulas utilizadas serão documentadas para permitir a conferência e a reprodução dos cálculos.
+O estudo não inclui benefícios nem contribuições do Regime Geral de Previdência Social (INSS). Assim, os resultados representam exclusivamente a renda potencial proporcionada pela previdência complementar.
 
-## 3. Objetivos
+As projeções são cenários acadêmicos e ilustrativos, não garantias individuais de benefício futuro ou recomendações financeiras. As premissas e fórmulas foram registradas para permitir a interpretação e a reprodução dos cálculos.
 
-### 3.1 Objetivo geral
+3. Objetivos
 
-Construir um pipeline de dados na nuvem que integre informações públicas da previdência complementar aberta e fechada com indicadores socioeconômicos, permitindo analisar o nível atual de poupança previdenciária e simular a taxa potencial de reposição de renda na aposentadoria, com enfoque na Região Sudeste.
+3.1 Objetivo geral
 
-### 3.2 Objetivos específicos
+Construir um pipeline de dados na nuvem que integre informações públicas da previdência complementar aberta e fechada com indicadores socioeconômicos, permitindo analisar a poupança previdenciária e simular sua taxa potencial de reposição de renda, com enfoque na Região Sudeste.
 
-- Coletar dados públicos da PREVIC, SUSEP e IBGE.
-- Documentar fontes, formas de coleta, períodos e licenças.
-- Armazenar os dados brutos na camada Bronze.
-- Limpar, validar e padronizar os dados na camada Silver.
-- Construir tabelas analíticas na camada Gold.
-- Analisar participantes, contribuições, patrimônio e características dos planos.
-- Comparar os segmentos aberto e fechado somente em indicadores compatíveis.
-- Examinar diferenças entre Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo.
-- Projetar o patrimônio futuro em diferentes cenários.
-- Converter o patrimônio projetado em renda mensal estimada.
-- Calcular a taxa de reposição proporcionada pela previdência complementar.
-- Documentar premissas, fórmulas e memórias de cálculo.
-- Identificar limitações e possibilidades de trabalhos futuros.
+3.2 Objetivos específicos
 
-## 4. Perguntas de negócio
+Coletar dados públicos da PREVIC, SUSEP e IBGE.
 
-4.1 Estrutura da previdência complementar
+Preservar os arquivos originais e registrar sua origem na camada Bronze.
 
-1. Como evoluíram as contribuições e os recursos acumulados nos segmentos aberto e fechado da previdência complementar?
-2. Qual é a participação de cada segmento no sistema de previdência complementar brasileiro, considerando apenas indicadores conceitualmente compatíveis?
+Limpar, tipar, padronizar e validar os dados na camada Silver.
 
-4.2 Perfil dos participantes
+Construir tabelas analíticas e indicadores na camada Gold.
 
-3. Qual é o perfil dos participantes da previdência complementar fechada por idade, sexo e situação no plano?
-4. Quais informações sobre o perfil dos participantes da previdência aberta estão disponíveis nas bases públicas e quais limitações impedem uma análise equivalente à realizada para a previdência fechada?
-   
-4.3 Análise regional
+Analisar o perfil populacional e a movimentação dos planos da previdência fechada.
 
-5. Como os indicadores de renda, idade e situação de trabalho diferem entre Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo?
-6. Como as informações disponíveis sobre previdência complementar aberta e fechada podem ser relacionadas ao contexto socioeconômico da Região Sudeste, respeitando a granularidade e as limitações territoriais de cada base?
-   
-4.4 Projeções previdenciárias
+Integrar os indicadores da previdência aberta ao contexto socioeconômico do Sudeste.
 
-7. Mantidos determinados níveis de contribuição, qual patrimônio poderá ser acumulado na previdência aberta e na previdência fechada, considerando as características específicas de cada segmento?
-8. Qual renda mensal complementar o patrimônio projetado poderá proporcionar na aposentadoria em diferentes cenários?
-9. Qual percentual da renda de referência poderá ser reposto exclusivamente pela previdência complementar aberta ou fechada?
-10. Como a taxa de reposição se altera conforme idade, contribuição, rentabilidade, prazo de acumulação e, no segmento fechado, eventual contribuição do patrocinador?
-11. Qual contribuição seria necessária, em cada segmento, para alcançar metas de reposição de 40%, 60% ou 80% da renda de referência?
+Projetar o patrimônio futuro em diferentes cenários e horizontes.
 
-4.5 Limitações
+Converter o patrimônio projetado em renda mensal complementar.
 
-12. Quais limitações das bases públicas impedem que os resultados agregados sejam interpretados como previsões individuais para toda a população?
+Calcular a taxa de reposição da renda proporcionada pela previdência complementar.
 
-As perguntas que não puderem ser respondidas serão mantidas e discutidas na conclusão e na autoavaliação, conforme a disponibilidade e a granularidade das bases encontradas.
+Documentar premissas, fórmulas, controles de qualidade e limitações.
 
-## 5. Escopo do projeto
+4. Perguntas de negócio
 
-### Incluído no escopo
+Qual é o perfil da população registrada na previdência complementar fechada em 2025?
 
-- Previdência complementar aberta e fechada.
-- Indicadores socioeconômicos da Região Sudeste.
-- Dados agregados e públicos.
-- Simulações financeiras por perfis e cenários.
-- Taxa de reposição gerada exclusivamente pela previdência complementar.
+Como se comportam as movimentações de entrada e saída por plano e entidade fechada?
 
-### Fora do escopo
+Quais limitações de cobertura e conciliação estão presentes nos dados da previdência fechada?
 
-- Benefícios e contribuições do INSS.
-- Previsões individualizadas.
-- Recomendações pessoais de investimento.
-- Garantias de rentabilidade ou benefício futuro.
-- Dados pessoais ou confidenciais.
+Como evoluíram os indicadores de previdência complementar aberta nos estados do Sudeste entre 2012 e 2025?
 
-A localização da sede de uma entidade fechada não será interpretada automaticamente como local de residência dos participantes. Essa limitação será observada nas análises territoriais.
+Como contribuições, resgates e participantes da previdência aberta se relacionam com população e rendimento médio por UF?
 
-## 6. Fontes e coleta dos dados
+Mantidas as contribuições médias observadas em 2025 para o PGBL, qual patrimônio poderá ser acumulado em 10, 20 e 30 anos?
 
-| Fonte | Segmento | Informações esperadas |
-|---|---|---|
-| PREVIC | Previdência fechada | Entidades, planos, participantes, contribuições, benefícios, patrimônio e investimentos |
-| SUSEP | Previdência aberta | Contribuições, resgates, provisões e informações de mercado |
-| IBGE | Socioeconômico | População, idade, rendimento e situação de trabalho |
+Qual renda mensal complementar esse patrimônio poderá proporcionar durante 20 anos?
 
-Os conjuntos de dados, períodos, endereços, formatos, licenças e datas de coleta serão definidos após a análise de disponibilidade e granularidade.
+Qual percentual da renda utilizada como referência poderá ser reposto nos cenários conservador, base e otimista?
 
-## 7. Arquitetura do pipeline
+Como o horizonte de acumulação e a rentabilidade alteram os resultados projetados?
 
-O projeto utilizará a Arquitetura Medalhão:
+Quais limitações impedem que os resultados agregados sejam interpretados como previsões individuais?
 
-```mermaid
+5. Escopo do projeto
+
+Incluído no escopo
+
+Previdência complementar aberta e fechada.
+
+Dados públicos e agregados.
+
+Indicadores socioeconômicos das quatro UFs da Região Sudeste.
+
+Histórico de 2012 a 2025 para a previdência aberta e o contexto socioeconômico.
+
+Dados de 2025 para o perfil e a movimentação da previdência fechada.
+
+Simulações financeiras para a previdência aberta por UF, horizonte e cenário.
+
+Taxa de reposição gerada exclusivamente pela previdência complementar.
+
+Fora do escopo
+
+Benefícios e contribuições do INSS.
+
+Previsões individualizadas.
+
+Recomendações pessoais de investimento.
+
+Garantias de rentabilidade ou benefício futuro.
+
+Dados pessoais ou confidenciais.
+
+Inferência da residência dos participantes fechados a partir da sede da entidade.
+
+A previdência fechada foi analisada em âmbito nacional, pois as bases utilizadas não oferecem identificação territorial dos participantes compatível com a análise por UF realizada para a previdência aberta.
+
+6. Fontes e coleta dos dados
+
+Fonte
+
+Segmento
+
+Conteúdo utilizado
+
+Recorte
+
+PREVIC
+
+Previdência fechada
+
+Estatística de População e Benefícios (EPB) e Demonstração Estatística de Investimentos e de Planos (DSI)
+
+Brasil, 2025
+
+SUSEP
+
+Previdência aberta
+
+Contribuições, resgates e quantidade de participantes de produtos previdenciários
+
+Sudeste, 2012–2025
+
+IBGE/SIDRA
+
+Socioeconômico
+
+Rendimento médio mensal e população por UF
+
+Sudeste, 2012–2025
+
+Os arquivos foram obtidos em fontes oficiais e processados no Databricks. A camada Bronze preserva os dados com a maior fidelidade possível em relação aos arquivos recebidos e adiciona metadados de rastreabilidade.
+
+7. Arquitetura do pipeline
+
+O projeto utiliza a Arquitetura Medalhão:
+
 flowchart LR
     A[Fontes oficiais] --> B[Bronze: dados brutos]
     B --> C[Silver: dados tratados]
     C --> D[Gold: dados analíticos]
     D --> E[Análises e simulações]
-```
 
-- **Bronze:** dados brutos preservados como recebidos.
-- **Silver:** dados limpos, tipados, padronizados e validados.
-- **Gold:** tabelas e indicadores preparados para análises e simulações.
+Bronze: preservação dos dados brutos, identificação do arquivo de origem e registro da data de ingestão.
 
-## 8. Modelagem dos dados
+Silver: limpeza, conversão de tipos, padronização, seleção de campos, tratamento de valores inválidos e controle de duplicidades.
 
-Esta seção apresentará tabelas, chaves, relacionamentos, granularidades, regras de negócio, linhagem e catálogo de dados.
+Gold: integração das fontes, aplicação das regras de negócio, construção de indicadores e geração dos cenários de reposição.
 
-**Status:** aguardando a seleção e análise das bases.
+As tabelas são persistidas em formato Delta nos schemas workspace.bronze, workspace.silver e workspace.gold.
 
-## 9. Processo de carga e transformação
+8. Modelagem dos dados
 
-Esta seção documentará extração, carga, limpeza, padronização, integração e persistência no Databricks.
+8.1 Camada Bronze
 
-**Status:** aguardando o início da implementação.
+A camada Bronze contém 17 tabelas Delta:
 
-## 10. Análise da qualidade dos dados
+3 tabelas da PREVIC;
 
-A qualidade será avaliada por atributo, considerando valores nulos, duplicidades, tipos incorretos, limites esperados, categorias inesperadas, integridade das chaves e compatibilidade entre fontes.
+12 tabelas da SUSEP;
 
-**Status:** aguardando a ingestão dos dados.
+2 tabelas do IBGE.
 
-## 11. Análise e solução do problema
+Os dados foram mantidos próximos à estrutura original. Arquivos sem cabeçalho ou com formatação especial tiveram sua estrutura preservada para tratamento posterior.
 
-Esta seção apresentará os resultados técnicos e a discussão de cada pergunta de negócio.
+8.2 Camada Silver
 
-**Status:** aguardando a construção das camadas Silver e Gold.
+A camada Silver contém 11 tabelas tratadas. Nessa etapa foram realizadas padronização dos nomes das colunas, conversão de tipos, normalização de valores monetários, tratamento das estruturas dos arquivos do IBGE e identificação dos campos das bases da PREVIC.
 
-## 12. Simulação da taxa de reposição
+8.3 Camada Gold
 
-**Taxa de reposição = (renda complementar mensal projetada / renda mensal de referência) x 100**
+A camada Gold contém sete tabelas analíticas:
 
-Serão avaliados cenários conservador, moderado e otimista, considerando diferentes rentabilidades reais, idades, prazos, contribuições e períodos de recebimento.
+Tabela
 
-## 13. Memória de cálculo
+Granularidade
 
-Cada simulação apresentará dados de entrada e suas fontes, premissas, fórmulas, resultados intermediários, patrimônio final, renda estimada, taxa de reposição, cenário e data de processamento.
+Finalidade
 
-## 14. Conclusão
+contexto_socioeconomico_uf_ano
 
-A conclusão apresentará uma síntese dos resultados, respostas obtidas, objetivos atingidos e limitações identificadas.
+UF e ano
 
-## 15. Autoavaliação
+População e rendimento médio mensal
 
-A autoavaliação discutirá objetivos alcançados, perguntas respondidas, dificuldades, soluções adotadas, conhecimentos adquiridos, evolução durante o projeto, limitações e possibilidades de aprimoramento.
+previdencia_aberta_uf_ano
 
-As dificuldades serão registradas durante todo o desenvolvimento para que esta seção represente fielmente a experiência do projeto.
+UF, ano e produto
 
-## 16. Trabalhos futuros
+Indicadores da previdência aberta
 
-Esta seção indicará novas bases, métricas, funcionalidades e análises que poderão enriquecer o projeto.
+indicadores_aberta_contexto_uf_ano
 
-## 17. Como reproduzir o projeto
+UF, ano e produto
 
-Ao final, esta seção apresentará as instruções para executar os notebooks, carregar as bases e reconstruir tabelas e resultados.
+Integração SUSEP–IBGE e indicadores derivados
 
-## 18. Referências
+perfil_previdencia_fechada_2025
 
-As fontes oficiais, documentos técnicos e referências metodológicas serão registrados com seus endereços e datas de acesso.
+Categorias do perfil populacional
+
+Caracterização da população da previdência fechada
+
+movimentacao_plano_entidade_fechada_2025
+
+Plano e entidade
+
+Entradas, saídas, saldos e flags de qualidade
+
+cenarios_reposicao_renda_2025
+
+UF, horizonte e cenário
+
+Memória detalhada das projeções
+
+resumo_cenarios_reposicao_uf
+
+UF e horizonte
+
+Comparação entre os três cenários
+
+9. Processo de carga e transformação
+
+O pipeline foi implementado em três notebooks executados sequencialmente:
+
+01_ingestao_bronze.ipynb: leitura dos arquivos, inclusão de metadados e gravação das tabelas brutas.
+
+02_tratamento_silver.ipynb: limpeza, tipagem, padronização, validação e persistência das tabelas tratadas.
+
+03_modelagem_gold.ipynb: integração das fontes, criação dos indicadores, simulação financeira, validação e gravação das tabelas analíticas.
+
+As gravações utilizam tabelas Delta e modo de sobrescrita controlada, permitindo a reexecução dos notebooks sem multiplicação indevida dos registros.
+
+10. Qualidade dos dados
+
+Foram aplicados controles de quantidade de registros, quantidade de colunas, tipos, valores nulos, chaves repetidas, faixas esperadas e coerência dos resultados.
+
+Entre os principais resultados dos controles estão:
+
+ausência de repetição nas chaves das principais tabelas Gold;
+
+12 registros inválidos controlados no perfil da previdência fechada;
+
+10 planos com mudança de entidade na base de movimentação;
+
+121 registros com cobertura incompleta;
+
+28 registros com diferença de conciliação;
+
+3.092 registros considerados aptos à análise entre 3.266 movimentações;
+
+ausência de valores nulos nas projeções finais;
+
+ausência de violações na ordenação esperada entre os cenários conservador, base e otimista.
+
+Os registros com problemas relevantes não foram silenciosamente descartados. Sempre que metodologicamente adequado, eles foram mantidos com flags de qualidade para preservar a rastreabilidade.
+
+11. Solução analítica
+
+Os dados da previdência aberta foram integrados aos indicadores do IBGE por UF e ano. A união permitiu calcular, entre outros campos:
+
+contribuição anual;
+
+benefício pago anual;
+
+resgate pago anual;
+
+quantidade anual de resgates;
+
+participantes ao final do ano;
+
+contribuição média mensal por participante;
+
+percentual da contribuição sobre o rendimento médio;
+
+contribuições menos resgates;
+
+resultado dos fluxos informados.
+
+Para as projeções foram selecionados os registros de PGBL de 2025. A simulação mantém cada UF separada, pois os valores de rendimento e contribuição são diferentes entre Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo.
+
+12. Simulação da taxa de reposição
+
+12.1 Premissas
+
+Parâmetro
+
+Premissa
+
+Produto de referência
+
+PGBL
+
+Ano de referência
+
+2025
+
+Horizontes de acumulação
+
+10, 20 e 30 anos
+
+Cenário conservador
+
+2% de retorno real ao ano
+
+Cenário base
+
+4% de retorno real ao ano
+
+Cenário otimista
+
+6% de retorno real ao ano
+
+Rentabilidade durante o benefício
+
+2% real ao ano
+
+Duração do benefício
+
+20 anos
+
+Momento das contribuições
+
+Final de cada mês (postecipadas)
+
+Moeda
+
+Reais constantes de 2025
+
+O rendimento de referência e a contribuição mensal não aumentam entre os horizontes porque estão expressos em reais constantes de 2025. O modelo não considera crescimento real do salário acima da inflação. Em consequência, a contribuição também permanece constante em termos reais.
+
+12.2 Valores de referência de 2025
+
+UF
+
+Rendimento mensal de referência
+
+Contribuição mensal por participante
+
+Percentual sobre o rendimento
+
+ES
+
+R$ 3.497,00
+
+R$ 216,25
+
+6,1839%
+
+MG
+
+R$ 3.350,00
+
+R$ 714,38
+
+21,3248%
+
+RJ
+
+R$ 4.177,00
+
+R$ 884,50
+
+21,1755%
+
+SP
+
+R$ 4.190,00
+
+R$ 249,16
+
+5,9465%
+
+Esses valores são médias agregadas obtidas das bases utilizadas. Não representam contribuições ou rendimentos individuais típicos de todos os residentes de cada estado.
+
+13. Memória de cálculo
+
+13.1 Conversão da taxa real anual em taxa mensal equivalente
+
+taxa_mensal = (1 + taxa_anual)^(1/12) - 1
+
+13.2 Quantidade de contribuições
+
+quantidade_meses = horizonte_anos × 12
+
+13.3 Patrimônio acumulado
+
+Para contribuições mensais postecipadas:
+
+patrimonio = contribuicao_mensal × [((1 + taxa_mensal)^quantidade_meses - 1) / taxa_mensal]
+
+13.4 Renda mensal projetada
+
+O patrimônio é convertido em uma anuidade mensal durante 20 anos:
+
+renda_mensal = patrimonio ×
+               [taxa_mensal_beneficio × (1 + taxa_mensal_beneficio)^quantidade_meses_beneficio] /
+               [(1 + taxa_mensal_beneficio)^quantidade_meses_beneficio - 1]
+
+13.5 Taxa de reposição
+
+taxa_reposicao = (renda_mensal_projetada / rendimento_referencia) × 100
+
+As tabelas Gold conservam valores intermediários, parâmetros, método de cálculo, moeda de referência e data de processamento.
+
+14. Resultados parciais
+
+Foram geradas 36 projeções detalhadas, correspondentes a:
+
+4 UFs × 3 horizontes × 3 cenários = 36 projeções
+
+O resumo comparativo contém 12 registros, um para cada combinação de UF e horizonte. Considerando todas as projeções, a taxa de reposição variou entre aproximadamente 3,98% e 104,95%.
+
+Os resultados já demonstram que horizontes mais longos e maiores taxas de retorno real aumentam o patrimônio acumulado e a renda mensal projetada. A interpretação comparativa completa será complementada por tabelas, gráficos e discussão das diferenças entre as UFs.
+
+15. Limitações
+
+As bases são agregadas e não permitem previsões individuais.
+
+A previdência fechada não possui recorte territorial compatível com a análise por UF.
+
+Os segmentos aberto e fechado possuem estruturas e granularidades diferentes e não devem ser comparados sem compatibilização conceitual.
+
+Não foi considerado saldo inicial.
+
+Não foi considerado crescimento real do salário.
+
+Não foram incluídas contribuições extraordinárias.
+
+Não foram considerados resgates durante a acumulação projetada.
+
+Taxas administrativas e carregamentos não foram modelados.
+
+Tributação não foi incluída.
+
+A rentabilidade futura é incerta.
+
+Médias agregadas podem ser influenciadas pela composição dos participantes e não representam necessariamente um indivíduo típico.
+
+16. Autoavaliação
+
+O desenvolvimento do projeto exigiu a integração de bases com formatos, granularidades e níveis de qualidade diferentes. Entre as principais dificuldades estiveram a interpretação dos arquivos da PREVIC sem cabeçalhos descritivos, o tratamento das tabelas do IBGE com títulos e notas metodológicas, a padronização de valores monetários e a compatibilização territorial entre as fontes.
+
+As dificuldades foram enfrentadas por meio da inspeção dos arquivos, criação de validações intermediárias, preservação da rastreabilidade e separação das responsabilidades entre as camadas Bronze, Silver e Gold.
+
+O pipeline, as tabelas Gold e as projeções foram concluídos. A etapa seguinte consiste em aprofundar a análise visual, consolidar as respostas às perguntas de negócio e finalizar a documentação do MVP.
+
+17. Trabalhos futuros
+
+Incorporar novos anos e atualizações das fontes.
+
+Avaliar outras modalidades de previdência aberta.
+
+Simular crescimento real da renda e contribuições variáveis.
+
+Incorporar taxas, tributação e diferentes regimes de recebimento.
+
+Calcular a contribuição necessária para metas predefinidas de reposição.
+
+Construir análises de sensibilidade para retorno, prazo e duração do benefício.
+
+Desenvolver painel interativo para exploração dos cenários.
+
+Ampliar a análise territorial caso novas bases públicas detalhadas sejam disponibilizadas.
+
+18. Como reproduzir o projeto
+
+Criar no Databricks os schemas workspace.bronze, workspace.silver e workspace.gold.
+
+Disponibilizar os arquivos das fontes no caminho esperado pelo notebook de ingestão.
+
+Executar notebooks/01_ingestao_bronze.ipynb.
+
+Executar notebooks/02_tratamento_silver.ipynb.
+
+Executar notebooks/03_modelagem_gold.ipynb.
+
+Conferir as validações apresentadas ao final de cada notebook.
+
+Os caminhos dos arquivos e demais configurações dependentes do ambiente devem ser ajustados antes da execução em outro workspace.
+
+19. Estrutura do repositório
+
+mvp-poupanca-previdenciaria/
+├── docs/
+├── notebooks/
+│   ├── 01_ingestao_bronze.ipynb
+│   ├── 02_tratamento_silver.ipynb
+│   └── 03_modelagem_gold.ipynb
+├── .gitignore
+└── README.md
+
+20. Referências
+
+PREVIC — Estatística de População e Benefícios e DSI
+
+SUSEP — Dados abertos
+
+IBGE/SIDRA — Tabela 7444
+
+IBGE/SIDRA — Tabela 6407
+
+Databricks — Documentação
+
+Observação: este projeto possui finalidade exclusivamente acadêmica. Os resultados são estimativas baseadas em dados agregados e premissas simplificadoras e não constituem garantia de rentabilidade, previsão individual ou recomendação financeira.
