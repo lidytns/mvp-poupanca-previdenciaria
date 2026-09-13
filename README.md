@@ -281,15 +281,27 @@ As tabelas Gold conservam valores intermediários, parâmetros, método de cálc
 
 ## 14. Resultados parciais
 
-Foram geradas 36 projeções detalhadas, correspondentes a:
+Foram geradas 36 projeções detalhadas, resultantes da combinação entre quatro Unidades da Federação, três horizontes de acumulação e três cenários de rentabilidade:
 
-```text
+. UFs: Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo;
+. horizontes: 10, 20 e 30 anos de acumulação;
+. cenários: conservador, base e otimista.
+
+Cada horizonte representa o período durante o qual as contribuições mensais são acumuladas. Cada cenário representa uma hipótese diferente de rentabilidade real anual:
+
+. conservador: 2% ao ano;
+. base: 4% ao ano;
+. otimista: 6% ao ano.
+
+Assim, o total de projeções foi calculado da seguinte forma:
+
 4 UFs × 3 horizontes × 3 cenários = 36 projeções
-```
 
-O resumo comparativo contém 12 registros, um para cada combinação de UF e horizonte. Considerando todas as projeções, a taxa de reposição variou entre aproximadamente **3,98%** e **104,95%**.
+O resumo comparativo contém 12 registros, correspondentes às combinações entre quatro UFs e três horizontes. Em cada registro, os resultados dos três cenários são apresentados em colunas separadas, facilitando sua comparação.
 
-Os resultados já demonstram que horizontes mais longos e maiores taxas de retorno real aumentam o patrimônio acumulado e a renda mensal projetada. A interpretação comparativa completa será complementada por tabelas, gráficos e discussão das diferenças entre as UFs.
+Considerando todas as projeções, a taxa de reposição variou entre aproximadamente 3,98% e 104,95%.
+
+Os resultados demonstram que horizontes de acumulação mais longos e taxas maiores de retorno real aumentam o patrimônio acumulado, a renda mensal projetada e, consequentemente, a taxa de reposição da renda. A interpretação comparativa será complementada por tabelas, gráficos e discussão das diferenças entre as UFs.
 
 ## 15. Limitações
 
