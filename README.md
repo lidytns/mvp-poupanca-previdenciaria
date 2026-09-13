@@ -283,19 +283,15 @@ As tabelas Gold conservam valores intermediários, parâmetros, método de cálc
 
 Foram geradas 36 projeções detalhadas, resultantes da combinação entre quatro Unidades da Federação, três horizontes de acumulação e três cenários de rentabilidade:
 
-. UFs: Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo;
-
-. horizontes: 10, 20 e 30 anos de acumulação;
-
-. cenários: conservador, base e otimista.
+- **UFs:** Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo;
+- **horizontes:** 10, 20 e 30 anos de acumulação;
+- **cenários:** conservador, base e otimista.
 
 Cada horizonte representa o período durante o qual as contribuições mensais são acumuladas. Cada cenário representa uma hipótese diferente de rentabilidade real anual:
 
-. conservador: 2% ao ano;
-
-. base: 4% ao ano;
-
-. otimista: 6% ao ano.
+- **conservador:** 2% ao ano;
+- **base:** 4% ao ano;
+- **otimista:** 6% ao ano.
 
 Assim, o total de projeções foi calculado da seguinte forma:
 
