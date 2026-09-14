@@ -211,7 +211,29 @@ Para as projeções foram selecionados os registros de PGBL de 2025. A simulaç�
 
 ## 12. Simulação da taxa de reposição
 
-### 12.1 Premissas
+### 12.1 Escolha do PGBL como produto de referência
+
+O Plano Gerador de Benefício Livre (PGBL) é uma modalidade de previdência complementar aberta com cobertura por sobrevivência. Seu objetivo é permitir a acumulação de recursos durante determinado período para posterior recebimento na forma de resgate ou renda complementar.
+
+O PGBL possui natureza previdenciária e é fiscalizado pela Superintendência de Seguros Privados (SUSEP). Durante a fase de acumulação, as contribuições são aplicadas em fundos vinculados ao plano, e o patrimônio formado depende dos valores contribuídos, do prazo de acumulação, da rentabilidade obtida e dos custos incidentes.
+
+Para os contribuintes que atendem aos requisitos legais, utilizam o modelo completo da declaração do Imposto de Renda e contribuem para o regime oficial de previdência, as contribuições realizadas ao PGBL podem ser deduzidas da base de cálculo do imposto até o limite legal de 12% dos rendimentos tributáveis anuais. Em contrapartida, no momento do resgate ou do recebimento do benefício, o Imposto de Renda incide sobre o valor total recebido.
+
+O Vida Gerador de Benefício Livre (VGBL), apesar de também ser utilizado para acumulação de recursos de longo prazo, é juridicamente classificado como seguro de pessoas com cobertura por sobrevivência. Suas contribuições não são dedutíveis da base de cálculo do Imposto de Renda e, no momento do resgate ou recebimento, a tributação incide somente sobre os rendimentos, conforme as regras aplicáveis.
+
+Neste projeto, o PGBL foi escolhido como produto de referência pelos seguintes motivos:
+
+- possui enquadramento direto como plano de previdência complementar aberta;
+- apresenta maior aderência conceitual ao objetivo de estimar uma renda complementar para a aposentadoria;
+- permite utilizar as contribuições como aportes regulares na formação do patrimônio projetado;
+- evita misturar, na mesma simulação, produtos com classificações regulatórias e tratamentos tributários distintos;
+- permite manter uma metodologia uniforme entre as quatro Unidades da Federação analisadas.
+
+A escolha do PGBL não significa que ele seja necessariamente superior ao VGBL nem constitui recomendação financeira. O produto mais adequado depende, entre outros fatores, da situação tributária, da forma de declaração do Imposto de Renda e dos objetivos de cada pessoa.
+
+O VGBL não foi incluído na simulação principal para preservar a delimitação conceitual do estudo. Sua incorporação, com tratamento metodológico e tributário específico, poderá ser realizada em trabalhos futuros.
+
+### 12.2 Premissas
 
 | Parâmetro | Premissa |
 |---|---|
@@ -228,7 +250,7 @@ Para as projeções foram selecionados os registros de PGBL de 2025. A simulaç�
 
 O rendimento de referência e a contribuição mensal não aumentam entre os horizontes porque estão expressos em reais constantes de 2025. O modelo não considera crescimento real do salário acima da inflação. Em consequência, a contribuição também permanece constante em termos reais.
 
-### 12.2 Valores de referência de 2025
+### 12.3 Valores de referência de 2025
 
 | UF | Rendimento mensal de referência | Contribuição mensal por participante | Percentual sobre o rendimento |
 |---|---:|---:|---:|
@@ -367,6 +389,7 @@ mvp-poupanca-previdenciaria/
 - [IBGE/SIDRA — Tabela 7444](https://sidra.ibge.gov.br/tabela/7444)
 - [IBGE/SIDRA — Tabela 6407](https://sidra.ibge.gov.br/tabela/6407)
 - [Databricks — Documentação](https://docs.databricks.com/)
+- [SUSEP — Circular nº 563/2017: planos de previdência complementar aberta com cobertura por sobrevivência](https://www2.susep.gov.br/safe/scripts/bnweb/bnmapi.exe?router=upload/18449)
 
 ---
 
