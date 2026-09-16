@@ -6,8 +6,7 @@
 **Curso:** Ciências de Dados e Analytics  
 **Instituição:** PUC-Rio  
 **Plataforma:** Databricks Free Edition  
-**Status:** Pipeline Bronze–Silver–Gold concluído; análises e documentação final em andamento
-
+**Status:** Projeto concluído
 ---
 
 ## Sumário
@@ -25,14 +24,14 @@
 11. [Solução analítica](#11-solução-analítica)
 12. [Simulação da taxa de reposição](#12-simulação-da-taxa-de-reposição)
 13. [Memória de cálculo](#13-memória-de-cálculo)
-14. [Resultados parciais](#14-resultados-parciais)
-15. [Limitações](#15-limitações)
-16. [Autoavaliação](#16-autoavaliação)
-17. [Trabalhos futuros](#17-trabalhos-futuros)
-18. [Como reproduzir o projeto](#18-como-reproduzir-o-projeto)
-19. [Estrutura do repositório](#19-estrutura-do-repositório)
-20. [Referências](#20-referências)
-
+14. [Resultados](#14-resultados)
+15. [Conclusão](#15-conclusão)
+16. [Limitações](#16-limitações)
+17. [Autoavaliação](#17-autoavaliação)
+18. [Trabalhos futuros](#18-trabalhos-futuros)
+19. [Como reproduzir o projeto](#19-como-reproduzir-o-projeto)
+20. [Estrutura do repositório](#20-estrutura-do-repositório)
+21. [Referências](#21-referências)
 ---
 
 ## 1. Introdução
@@ -301,31 +300,61 @@ taxa_reposicao = (renda_mensal_projetada / rendimento_referencia) × 100
 
 As tabelas Gold conservam valores intermediários, parâmetros, método de cálculo, moeda de referência e data de processamento.
 
-## 14. Resultados parciais
+## 14. Resultados
 
-Foram geradas 36 projeções detalhadas, resultantes da combinação entre quatro Unidades da Federação, três horizontes de acumulação e três cenários de rentabilidade:
+A camada Gold foi concluída com sete tabelas analíticas e 3.592 registros distribuídos entre contexto socioeconômico, previdência aberta, previdência fechada e cenários de reposição.
 
-- **UFs:** Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo;
-- **horizontes:** 10, 20 e 30 anos de acumulação;
-- **cenários:** conservador, base e otimista.
+Na previdência complementar fechada, foram identificadas 4.053.330 pessoas válidas em 2025:
 
-Cada horizonte representa o período durante o qual as contribuições mensais são acumuladas. Cada cenário representa uma hipótese diferente de rentabilidade real anual:
+* **participantes ativos:** 3.175.915 pessoas, ou 78,35%;
+* **aposentados:** 667.836 pessoas, ou 16,48%;
+* **beneficiários de pensão:** 209.579 pessoas, ou 5,17%.
 
-- **conservador:** 2% ao ano;
-- **base:** 4% ao ano;
-- **otimista:** 6% ao ano.
+A análise mostrou predominância masculina entre participantes ativos e aposentados. Entre os beneficiários de pensão, as mulheres representam 87,35%. A faixa entre 35 e 54 anos concentra a maior parte dos participantes ativos, enquanto aposentados e pensionistas se concentram nas faixas etárias mais elevadas.
 
-Assim, o total de projeções foi calculado da seguinte forma:
+Na movimentação dos planos fechados, a quantidade de participantes ativos cresceu 2,67%, e a de beneficiários de pensão aumentou 1,63%. O grupo de aposentados apresentou redução de 0,21%.
 
-4 UFs × 3 horizontes × 3 cenários = 36 projeções
+Os controles de qualidade identificaram 121 linhas com cobertura incompleta, 28 com diferença de conciliação e 60 associadas a mudanças de entidade. Dos 3.266 registros de movimentação, 3.092 foram classificados como aptos para análise.
 
-O resumo comparativo contém 12 registros, correspondentes às combinações entre quatro UFs e três horizontes. Em cada registro, os resultados dos três cenários são apresentados em colunas separadas, facilitando sua comparação.
+Na previdência complementar aberta, o PGBL apresentou crescimento dos fluxos de contribuições e resgates entre 2012 e 2025. As contribuições permaneceram superiores aos resgates na maior parte do período, embora a diferença tenha diminuído nos anos recentes.
 
-Considerando todas as projeções, a taxa de reposição variou entre aproximadamente 3,98% e 104,95%.
+Na Previdência Tradicional, as contribuições diminuíram após 2017 e 2018, enquanto os resgates passaram a superar as contribuições a partir de 2022.
 
-Os resultados demonstram que horizontes de acumulação mais longos e taxas maiores de retorno real aumentam o patrimônio acumulado, a renda mensal projetada e, consequentemente, a taxa de reposição da renda. A interpretação comparativa será complementada por tabelas, gráficos e discussão das diferenças entre as UFs.
+Foram geradas 36 projeções para o PGBL, resultantes da combinação entre:
 
-## 15. Limitações
+* **quatro UFs:** Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo;
+* **três horizontes de acumulação:** 10, 20 e 30 anos;
+* **três cenários de rentabilidade real:** conservador, base e otimista.
+
+As projeções produziram os seguintes intervalos:
+
+| Horizonte |          Patrimônio projetado |  Renda mensal projetada | Taxa de reposição |
+| --------- | ----------------------------: | ----------------------: | ----------------: |
+| 10 anos   |  R$ 28.674,06 a R$ 143.707,76 |   R$ 144,81 a R$ 725,76 |    3,98% a 17,50% |
+| 20 anos   |  R$ 63.627,58 a R$ 401.066,47 | R$ 321,34 a R$ 2.025,49 |    8,84% a 48,83% |
+| 30 anos   | R$ 106.235,73 a R$ 861.956,72 | R$ 536,52 a R$ 4.353,11 |  14,75% a 104,95% |
+
+As projeções foram realizadas exclusivamente para a previdência complementar aberta, utilizando o PGBL como produto de referência. Não foram produzidas projeções equivalentes para a previdência fechada.
+
+Os resultados completos, os gráficos e as respostas às perguntas de negócio estão disponíveis no notebook `notebooks/04_analise_resultados.ipynb`.
+
+## 15. Conclusão
+
+O projeto demonstrou a aplicação da Arquitetura Medalhão na integração de dados públicos da PREVIC, SUSEP e IBGE. As camadas Bronze, Silver e Gold permitiram preservar os dados originais, tratar estruturas heterogêneas, controlar problemas de qualidade e produzir informações analíticas rastreáveis.
+
+Os resultados demonstraram que o prazo de acumulação, o nível das contribuições e a rentabilidade real exercem forte influência sobre o patrimônio futuro e a taxa de reposição. Minas Gerais e Rio de Janeiro apresentaram as maiores projeções porque suas contribuições médias do PGBL representam aproximadamente 21% do rendimento utilizado como referência. Espírito Santo e São Paulo apresentaram percentuais próximos de 6% e, consequentemente, taxas de reposição menores.
+
+A análise também evidenciou o valor do dinheiro no tempo. Quanto mais cedo começa a acumulação, maior é o período durante o qual as contribuições e seus rendimentos permanecem investidos. Em horizontes longos, os rendimentos acumulados geram novos rendimentos, ampliando o efeito dos juros compostos.
+
+Além dos fatores financeiros, a formação de uma poupança previdenciária depende da educação financeira e da capacidade de planejamento de longo prazo. A compreensão do valor do dinheiro no tempo pode contribuir para decisões mais conscientes, equilibrando necessidades de consumo presentes com objetivos futuros.
+
+Pequenas mudanças de hábito, como iniciar os aportes mais cedo, contribuir regularmente e destinar parte da renda à formação de reservas, podem produzir efeitos relevantes ao longo dos anos.
+
+Conclui-se que a previdência complementar pode contribuir de forma significativa para a reposição da renda, mas seus resultados dependem da combinação entre educação financeira, disciplina de poupança, nível das contribuições, prazo de acumulação e rentabilidade obtida.
+
+As projeções possuem finalidade acadêmica e comparativa. Não representam garantias de benefício futuro, previsões individuais ou recomendações financeiras.
+
+## 16. Limitações
 
 - As bases são agregadas e não permitem previsões individuais.
 - A previdência fechada não possui recorte territorial compatível com a análise por UF.
@@ -339,15 +368,20 @@ Os resultados demonstram que horizontes de acumulação mais longos e taxas maio
 - A rentabilidade futura é incerta.
 - Médias agregadas podem ser influenciadas pela composição dos participantes e não representam necessariamente um indivíduo típico.
 
-## 16. Autoavaliação
+## 17. Autoavaliação
 
 O desenvolvimento do projeto exigiu a integração de bases com formatos, granularidades e níveis de qualidade diferentes. Entre as principais dificuldades estiveram a interpretação dos arquivos da PREVIC sem cabeçalhos descritivos, o tratamento das tabelas do IBGE com títulos e notas metodológicas, a padronização de valores monetários e a compatibilização territorial entre as fontes.
 
-As dificuldades foram enfrentadas por meio da inspeção dos arquivos, criação de validações intermediárias, preservação da rastreabilidade e separação das responsabilidades entre as camadas Bronze, Silver e Gold.
+Essas dificuldades foram enfrentadas por meio da inspeção dos arquivos, da criação de validações intermediárias, da preservação da rastreabilidade e da separação das responsabilidades entre as camadas Bronze, Silver e Gold.
 
-O pipeline, as tabelas Gold e as projeções foram concluídos. A etapa seguinte consiste em aprofundar a análise visual, consolidar as respostas às perguntas de negócio e finalizar a documentação do MVP.
+Durante o desenvolvimento, também foi necessário revisar o escopo das perguntas de negócio de acordo com a disponibilidade real dos dados. A previdência fechada foi analisada em âmbito nacional, enquanto as projeções financeiras foram aplicadas exclusivamente à previdência aberta, utilizando o PGBL como produto de referência.
 
-## 17. Trabalhos futuros
+O projeto atingiu seu objetivo de construir um pipeline completo em nuvem, integrar dados públicos, produzir tabelas analíticas, desenvolver cenários de reposição de renda e comunicar os resultados por meio de tabelas, gráficos e interpretações.
+
+Como aprendizado, o trabalho reforçou a importância de não apenas transformar os dados, mas também compreender sua origem, granularidade, limitações e significado. A criação de controles de qualidade e a documentação das premissas foram fundamentais para evitar conclusões incompatíveis com as bases disponíveis.
+
+
+## 18. Trabalhos futuros
 
 - Incorporar novos anos e atualizações das fontes.
 - Avaliar outras modalidades de previdência aberta.
@@ -358,18 +392,19 @@ O pipeline, as tabelas Gold e as projeções foram concluídos. A etapa seguinte
 - Desenvolver painel interativo para exploração dos cenários.
 - Ampliar a análise territorial caso novas bases públicas detalhadas sejam disponibilizadas.
 
-## 18. Como reproduzir o projeto
+## 19. Como reproduzir o projeto
 
 1. Criar no Databricks os schemas `workspace.bronze`, `workspace.silver` e `workspace.gold`.
 2. Disponibilizar os arquivos das fontes no caminho esperado pelo notebook de ingestão.
 3. Executar `notebooks/01_ingestao_bronze.ipynb`.
 4. Executar `notebooks/02_tratamento_silver.ipynb`.
 5. Executar `notebooks/03_modelagem_gold.ipynb`.
-6. Conferir as validações apresentadas ao final de cada notebook.
+6. Executar `notebooks/04_analise_resultados.ipynb`.
+7. Conferir as validações apresentadas ao final de cada notebook.
 
 Os caminhos dos arquivos e demais configurações dependentes do ambiente devem ser ajustados antes da execução em outro workspace.
 
-## 19. Estrutura do repositório
+## 20. Estrutura do repositório
 
 ```text
 mvp-poupanca-previdenciaria/
@@ -377,12 +412,13 @@ mvp-poupanca-previdenciaria/
 ├── notebooks/
 │   ├── 01_ingestao_bronze.ipynb
 │   ├── 02_tratamento_silver.ipynb
-│   └── 03_modelagem_gold.ipynb
+│   ├── 03_modelagem_gold.ipynb
+│   └── 04_analise_resultados.ipynb
 ├── .gitignore
 └── README.md
 ```
 
-## 20. Referências
+## 21. Referências
 
 - [PREVIC — Estatística de População e Benefícios e DSI](https://www.gov.br/previc/pt-br/acesso-a-informacao/dados-abertos/estatistica-de-populacao-e-beneficios-de-e-dsi)
 - [SUSEP — Dados abertos](https://www.gov.br/susep/pt-br/acesso-a-informacao/dados-abertos)
