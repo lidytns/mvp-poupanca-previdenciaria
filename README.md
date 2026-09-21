@@ -7,6 +7,7 @@
 **Instituição:** PUC-Rio  
 **Plataforma:** Databricks Free Edition  
 **Status:** Projeto concluído
+
 ---
 
 ## Sumário
@@ -32,6 +33,7 @@
 19. [Como reproduzir o projeto](#19-como-reproduzir-o-projeto)
 20. [Estrutura do repositório](#20-estrutura-do-repositório)
 21. [Referências](#21-referências)
+
 ---
 
 ## 1. Introdução
@@ -78,9 +80,9 @@ Construir um pipeline de dados na nuvem que integre informações públicas da p
 3. Quais limitações de cobertura e conciliação estão presentes nos dados da previdência fechada?
 4. Como evoluíram os indicadores de previdência complementar aberta nos estados do Sudeste entre 2012 e 2025?
 5. Como contribuições, resgates e participantes da previdência aberta se relacionam com população e rendimento médio por UF?
-6. Mantidas as contribuições médias observadas em 2025 para o PGBL, qual patrimônio poderá ser acumulado em 10, 20 e 30 anos?
-7. Qual renda mensal complementar esse patrimônio poderá proporcionar durante 20 anos?
-8. Qual percentual da renda utilizada como referência poderá ser reposto nos cenários conservador, base e otimista?
+6. Na previdência complementar aberta, qual patrimônio poderá ser acumulado no PGBL em 10, 20 e 30 anos?
+7. Na previdência complementar aberta, qual renda mensal o patrimônio projetado do PGBL poderá proporcionar?
+8. Na previdência complementar aberta, qual percentual da renda de referência poderá ser reposto pelo PGBL?
 9. Como o horizonte de acumulação e a rentabilidade alteram os resultados projetados?
 10. Quais limitações impedem que os resultados agregados sejam interpretados como previsões individuais?
 
@@ -167,11 +169,12 @@ A camada Gold contém sete tabelas analíticas:
 
 ## 9. Processo de carga e transformação
 
-O pipeline foi implementado em três notebooks executados sequencialmente:
+O projeto foi implementado em quatro notebooks executados sequencialmente:
 
 1. `01_ingestao_bronze.ipynb`: leitura dos arquivos, inclusão de metadados e gravação das tabelas brutas.
 2. `02_tratamento_silver.ipynb`: limpeza, tipagem, padronização, validação e persistência das tabelas tratadas.
 3. `03_modelagem_gold.ipynb`: integração das fontes, criação dos indicadores, simulação financeira, validação e gravação das tabelas analíticas.
+4. `04_analise_resultados.ipynb`: análise exploratória, visualizações, respostas às perguntas de negócio e conclusão.
 
 As gravações utilizam tabelas Delta e modo de sobrescrita controlada, permitindo a reexecução dos notebooks sem multiplicação indevida dos registros.
 
@@ -302,15 +305,17 @@ As tabelas Gold conservam valores intermediários, parâmetros, método de cálc
 
 ## 14. Resultados
 
-A camada Gold foi concluída com sete tabelas analíticas e 3.592 registros distribuídos entre contexto socioeconômico, previdência aberta, previdência fechada e cenários de reposição.
+A camada Gold foi concluída com sete tabelas analíticas e **3.636 registros** distribuídos entre contexto socioeconômico, previdência aberta, previdência fechada e cenários de reposição.
 
 Na previdência complementar fechada, foram identificadas 4.053.330 pessoas válidas em 2025:
 
-* **participantes ativos:** 3.175.915 pessoas, ou 78,35%;
-* **aposentados:** 667.836 pessoas, ou 16,48%;
-* **beneficiários de pensão:** 209.579 pessoas, ou 5,17%.
+- **participantes ativos:** 3.175.915 pessoas, ou 78,35%;
+- **aposentados:** 667.836 pessoas, ou 16,48%;
+- **beneficiários de pensão:** 209.579 pessoas, ou 5,17%.
 
 A análise mostrou predominância masculina entre participantes ativos e aposentados. Entre os beneficiários de pensão, as mulheres representam 87,35%. A faixa entre 35 e 54 anos concentra a maior parte dos participantes ativos, enquanto aposentados e pensionistas se concentram nas faixas etárias mais elevadas.
+
+Também foi construída uma pirâmide etária agregada por sexo e faixa etária. Essa visualização permite observar simultaneamente a concentração etária e as diferenças entre homens e mulheres na população da previdência complementar fechada. Por utilizar dados agrupados, ela caracteriza exclusivamente a base analisada e não representa a pirâmide demográfica da população brasileira.
 
 Na movimentação dos planos fechados, a quantidade de participantes ativos cresceu 2,67%, e a de beneficiários de pensão aumentou 1,63%. O grupo de aposentados apresentou redução de 0,21%.
 
@@ -322,17 +327,17 @@ Na Previdência Tradicional, as contribuições diminuíram após 2017 e 2018, e
 
 Foram geradas 36 projeções para o PGBL, resultantes da combinação entre:
 
-* **quatro UFs:** Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo;
-* **três horizontes de acumulação:** 10, 20 e 30 anos;
-* **três cenários de rentabilidade real:** conservador, base e otimista.
+- **quatro UFs:** Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo;
+- **três horizontes de acumulação:** 10, 20 e 30 anos;
+- **três cenários de rentabilidade real:** conservador, base e otimista.
 
 As projeções produziram os seguintes intervalos:
 
-| Horizonte |          Patrimônio projetado |  Renda mensal projetada | Taxa de reposição |
-| --------- | ----------------------------: | ----------------------: | ----------------: |
-| 10 anos   |  R$ 28.674,06 a R$ 143.707,76 |   R$ 144,81 a R$ 725,76 |    3,98% a 17,50% |
-| 20 anos   |  R$ 63.627,58 a R$ 401.066,47 | R$ 321,34 a R$ 2.025,49 |    8,84% a 48,83% |
-| 30 anos   | R$ 106.235,73 a R$ 861.956,72 | R$ 536,52 a R$ 4.353,11 |  14,75% a 104,95% |
+| Horizonte | Patrimônio projetado | Renda mensal projetada | Taxa de reposição |
+|---|---:|---:|---:|
+| 10 anos | R$ 28.674,06 a R$ 143.707,76 | R$ 144,81 a R$ 725,76 | 3,98% a 17,50% |
+| 20 anos | R$ 63.627,58 a R$ 401.066,47 | R$ 321,34 a R$ 2.025,49 | 8,84% a 48,83% |
+| 30 anos | R$ 106.235,73 a R$ 861.956,72 | R$ 536,52 a R$ 4.353,11 | 14,75% a 104,95% |
 
 As projeções foram realizadas exclusivamente para a previdência complementar aberta, utilizando o PGBL como produto de referência. Não foram produzidas projeções equivalentes para a previdência fechada.
 
@@ -380,7 +385,6 @@ O projeto atingiu seu objetivo de construir um pipeline completo em nuvem, integ
 
 Como aprendizado, o trabalho reforçou a importância de não apenas transformar os dados, mas também compreender sua origem, granularidade, limitações e significado. A criação de controles de qualidade e a documentação das premissas foram fundamentais para evitar conclusões incompatíveis com as bases disponíveis.
 
-
 ## 18. Trabalhos futuros
 
 - Incorporar novos anos e atualizações das fontes.
@@ -409,6 +413,8 @@ Os caminhos dos arquivos e demais configurações dependentes do ambiente devem 
 ```text
 mvp-poupanca-previdenciaria/
 ├── docs/
+│   ├── images/
+│   └── fontes_e_coleta.md
 ├── notebooks/
 │   ├── 01_ingestao_bronze.ipynb
 │   ├── 02_tratamento_silver.ipynb
@@ -426,7 +432,3 @@ mvp-poupanca-previdenciaria/
 - [IBGE/SIDRA — Tabela 6407](https://sidra.ibge.gov.br/tabela/6407)
 - [Databricks — Documentação](https://docs.databricks.com/)
 - [SUSEP — Circular nº 563/2017: planos de previdência complementar aberta com cobertura por sobrevivência](https://www2.susep.gov.br/safe/scripts/bnweb/bnmapi.exe?router=upload/18449)
-
----
-
-> **Observação:** este projeto possui finalidade exclusivamente acadêmica. Os resultados são estimativas baseadas em dados agregados e premissas simplificadoras e não constituem garantia de rentabilidade, previsão individual ou recomendação financeira.
