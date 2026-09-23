@@ -541,9 +541,9 @@ mvp-poupanca-previdenciaria/
 
 ## 21. Referências
 
-- [PREVIC — Estatística de População e Benefícios e DSI](https://www.gov.br/previc/pt-br/acesso-a-informacao/dados-abertos/estatistica-de-populacao-e-beneficios-de-e-dsi)
+- [PREVIC — Estatística de População e Benefícios (DE e DSI)](https://www.gov.br/previc/pt-br/sistemas/informacoes-sobre-os-sistemas-previc/estatistica-de-populacao-e-beneficios-de-e-dsi)
 - [SUSEP — Dados abertos](https://www.gov.br/susep/pt-br/acesso-a-informacao/dados-abertos)
 - [IBGE/SIDRA — Tabela 7444](https://sidra.ibge.gov.br/tabela/7444)
 - [IBGE/SIDRA — Tabela 6407](https://sidra.ibge.gov.br/tabela/6407)
 - [Databricks — Documentação](https://docs.databricks.com/)
-- [SUSEP — Circular nº 563/2017: planos de previdência complementar aberta com cobertura por sobrevivência](https://www2.susep.gov.br/safe/scripts/bnweb/bnmapi.exe?router=upload/18449)
+- [SUSEP — Regulamentação dos produtos PGBL e VGBL: Circulares nº 698 e nº 699/2024](https://www.gov.br/susep/pt-br/central-de-conteudos/noticias/2024/abril/susep-publica-regulamentacao-complementar-sobre-os-produtos-pgbl-e-vgbl)
