@@ -1,125 +1,152 @@
 # Fontes e Coleta dos Dados
 
-## 1. Objetivo desta etapa
+## 1. Objetivo
 
-Esta etapa tem como objetivo identificar, avaliar e documentar os conjuntos de dados que serão utilizados no MVP. A seleção das bases considera sua relação com as perguntas de negócio, a confiabilidade da fonte, a disponibilidade pública, o formato, o período, a granularidade e a possibilidade de integração com outros conjuntos de dados.
+Este documento registra as fontes efetivamente utilizadas no MVP, os recortes adotados e as decisões de coleta. A seleção considerou a relação com as perguntas de negócio, a confiabilidade da fonte, a disponibilidade pública, o formato, o período, a granularidade e a possibilidade de integração entre as bases.
 
-Nenhum conjunto será incorporado definitivamente ao pipeline antes da análise de sua estrutura, qualidade e compatibilidade com os objetivos do projeto.
-
----
-
-## 2. Critérios para seleção das bases
-
-Os conjuntos de dados serão avaliados de acordo com os seguintes critérios:
-
-- Relação com as perguntas de negócio.
-- Origem oficial e confiável.
-- Disponibilidade pública.
-- Existência de documentação ou descrição dos campos.
-- Formato adequado para processamento.
-- Período de referência disponível.
-- Frequência de atualização.
-- Granularidade das informações.
-- Presença de identificadores que permitam integração.
-- Licença ou condições de utilização.
-- Ausência de dados pessoais ou confidenciais.
+O projeto utiliza somente dados públicos e agregados da PREVIC, SUSEP e IBGE. Não foram utilizados dados pessoais ou confidenciais.
 
 ---
 
-## 3. Inventário preliminar das fontes
+## 2. Critérios de seleção
 
-| Órgão | Conjunto de dados | Segmento | Utilização prevista | Situação |
-|---|---|---|---|---|
-| PREVIC | Estatística de Benefícios e População - EBP | Fechada | Analisar participantes ativos, aposentados, pensionistas, sexo e faixa etária | Confirmada |
-| PREVIC | Montante Arrecadado | Fechada | Analisar contribuições recebidas pelas entidades e planos | Em validação |
-| PREVIC | Demonstrativos Contábeis | Fechada | Identificar patrimônio, provisões e informações contábeis | Em validação |
-| PREVIC | Demonstrativos Atuariais | Fechada | Identificar modalidade, características e premissas dos planos | Em validação |
-| PREVIC | Cadastro de Entidades e Planos - CadPrevic | Fechada | Identificar entidades, planos, modalidades e localização das sedes | Em validação |
-| SUSEP | Sistema de Estatísticas da SUSEP | Aberta | Analisar contribuições, resgates, provisões e evolução do mercado | Em validação |
-| IBGE | PNAD Contínua e/ou SIDRA | Socioeconômico | Obter informações de renda, trabalho, idade e população dos estados do Sudeste | Em validação |
+As bases foram selecionadas de acordo com os seguintes critérios:
 
-A indicação “Em validação” significa que a base ainda será examinada quanto aos campos, período, formato e granularidade antes de ser incorporada ao pipeline.
-
----
-
-## 4. Fonte confirmada: PREVIC - EBP
-
-### 4.1 Identificação
-
-- **Órgão responsável:** Superintendência Nacional de Previdência Complementar - PREVIC.
-- **Conjunto:** Estatística de Benefícios e População - EBP.
-- **Segmento:** Previdência complementar fechada.
-- **Página oficial:** https://www.gov.br/previc/pt-br/acesso-a-informacao-1/dados-abertos/estatistica-de-beneficio-e-populacao-ebp
-- **Acesso:** público.
-- **Situação no projeto:** fonte confirmada, aguardando seleção dos arquivos e inspeção das colunas.
-
-### 4.2 Utilização prevista
-
-A base será avaliada para responder às perguntas relacionadas ao perfil dos participantes da previdência complementar fechada, considerando:
-
-- Participantes ativos.
-- Aposentados.
-- Beneficiários de pensão.
-- Sexo.
-- Faixa etária.
-- Entidade e plano, quando disponíveis.
-- Período de referência.
-
-### 4.3 Limitações iniciais
-
-A EBP representa participantes vinculados às entidades e aos planos de previdência fechada. Ela não representa toda a população brasileira e não deve ser interpretada como uma pesquisa domiciliar.
-
-A localização da sede de uma entidade não representa necessariamente o estado de residência de seus participantes. Essa diferença será considerada nas análises territoriais.
+- relação com as perguntas de negócio;
+- origem oficial e confiável;
+- disponibilidade pública;
+- existência de documentação ou descrição dos dados;
+- formato adequado para processamento;
+- período compatível com o escopo do projeto;
+- granularidade adequada às análises;
+- possibilidade de integração por ano e Unidade da Federação, quando aplicável;
+- ausência de dados pessoais ou confidenciais.
 
 ---
 
-## 5. Metadados da coleta
+## 3. Fontes utilizadas
 
-Durante a ingestão na camada Bronze, serão acrescentados, quando aplicável, os seguintes metadados:
+| Órgão | Conjunto de dados | Segmento | Recorte utilizado | Finalidade | Situação |
+|---|---|---|---|---|---|
+| PREVIC | Estatística de População e Benefícios (EPB) | Previdência complementar fechada | Brasil, 2025 | Analisar participantes ativos, aposentados e beneficiários de pensão por sexo e faixa etária | Utilizada |
+| PREVIC | Demonstração Estatística de Investimentos e de Planos (DSI) | Previdência complementar fechada | Brasil, 2025 | Identificar planos e entidades e apoiar a análise das movimentações | Utilizada |
+| SUSEP | Dados estatísticos da previdência complementar aberta | Previdência complementar aberta | Espírito Santo, Minas Gerais, Rio de Janeiro e São Paulo, de 2012 a 2025 | Analisar contribuições, resgates, participantes e produtos previdenciários | Utilizada |
+| IBGE/SIDRA | Tabela 7444 | Socioeconômico | Região Sudeste, de 2012 a 2025 | Obter o rendimento médio mensal por UF | Utilizada |
+| IBGE/SIDRA | Tabela 6407 | Socioeconômico | Região Sudeste, de 2012 a 2025 | Obter a população por UF, sexo e faixa etária | Utilizada |
+
+---
+
+## 4. Arquivos da PREVIC
+
+Foram processados os seguintes arquivos:
+
+- `DSI_2025.csv`;
+- `EPB_1SEMESTRE_2025.csv`;
+- `EPB_2SEMESTRE_2025.csv`.
+
+Os arquivos foram disponibilizados sem cabeçalhos descritivos. Por esse motivo, a camada Bronze preservou a estrutura original, enquanto a identificação, a seleção e a tipagem dos campos foram realizadas na camada Silver.
+
+### Utilização
+
+As bases da PREVIC foram utilizadas para:
+
+- caracterizar participantes ativos, aposentados e beneficiários de pensão;
+- analisar a distribuição por sexo e faixa etária;
+- identificar entidades e planos;
+- analisar movimentações e mudanças de entidade;
+- controlar coberturas incompletas e diferenças de conciliação.
+
+### Limitações
+
+As bases representam participantes vinculados a entidades e planos de previdência complementar fechada. Elas não representam toda a população brasileira.
+
+A localização da sede de uma entidade não corresponde necessariamente ao estado de residência dos participantes. Por isso, a previdência fechada foi analisada em âmbito nacional e não foi utilizada nas projeções por UF.
+
+Página oficial: [PREVIC — Estatística de População e Benefícios (DE e DSI)](https://www.gov.br/previc/pt-br/sistemas/informacoes-sobre-os-sistemas-previc/estatistica-de-populacao-e-beneficios-de-e-dsi)
+
+---
+
+## 5. Dados da SUSEP
+
+Os dados da SUSEP foram utilizados para analisar a previdência complementar aberta nos quatro estados da Região Sudeste entre 2012 e 2025.
+
+As bases incluem informações agregadas sobre:
+
+- contribuições;
+- resgates;
+- benefícios pagos;
+- quantidade de participantes;
+- entidades;
+- produtos previdenciários.
+
+Na camada Silver, foram realizados a padronização dos campos, a conversão dos valores monetários e o tratamento das diferentes codificações encontradas nos arquivos. Na camada Gold, os dados foram agregados por UF, ano e produto.
+
+O PGBL foi escolhido como produto de referência para as simulações de patrimônio, renda mensal e taxa de reposição.
+
+Página oficial: [SUSEP — Dados abertos](https://www.gov.br/susep/pt-br/acesso-a-informacao/dados-abertos)
+
+---
+
+## 6. Dados do IBGE/SIDRA
+
+Foram utilizadas duas tabelas do Sistema IBGE de Recuperação Automática (SIDRA):
+
+- [Tabela 7444 — rendimento médio mensal](https://sidra.ibge.gov.br/tabela/7444);
+- [Tabela 6407 — população por sexo e grupos de idade](https://sidra.ibge.gov.br/tabela/6407).
+
+Os arquivos do IBGE possuíam títulos, cabeçalhos em múltiplas linhas, notas metodológicas e estrutura em formato largo. A camada Bronze preservou os arquivos recebidos. Na camada Silver, os dados foram convertidos para formato longitudinal e padronizados por ano, UF, sexo e faixa etária, conforme aplicável.
+
+Os indicadores do IBGE foram integrados aos dados da SUSEP por UF e ano para contextualizar as análises da previdência aberta e calcular o percentual da contribuição média sobre o rendimento de referência.
+
+---
+
+## 7. Metadados e rastreabilidade
+
+Durante a ingestão na camada Bronze, foram acrescentados, quando aplicável, os seguintes metadados:
 
 | Campo | Descrição |
 |---|---|
-| `fonte_dado` | Órgão ou sistema de origem |
-| `nome_arquivo_origem` | Nome original do arquivo coletado |
-| `url_origem` | Endereço oficial da fonte |
-| `data_coleta` | Data em que o arquivo foi obtido |
-| `periodo_referencia` | Período ao qual os dados se referem |
-| `formato_origem` | Formato original do arquivo |
-| `data_processamento` | Data e hora da ingestão no Databricks |
-| `camada` | Camada do pipeline em que o dado está armazenado |
+| `_arquivo_origem` | Nome ou caminho do arquivo coletado |
+| `_data_ingestao` | Data e hora da ingestão no Databricks |
+
+Além desses campos, os notebooks e esta documentação registram a fonte, o período de referência, as regras de transformação e as limitações de cada conjunto.
 
 ---
 
-## 6. Estratégia de coleta
+## 8. Processo de coleta e ingestão
 
-A coleta seguirá as seguintes etapas:
+O processo adotado foi:
 
-1. Acessar a fonte oficial.
-2. Registrar o endereço e a data de acesso.
-3. Selecionar o período adequado para a análise.
-4. Baixar o arquivo sem modificar seu conteúdo.
-5. Registrar o nome e o formato original.
-6. Armazenar o dado bruto na camada Bronze.
-7. Acrescentar metadados de rastreabilidade.
-8. Conferir se a quantidade de registros carregados corresponde ao arquivo original.
-9. Preservar a fonte bruta para possibilitar reprocessamento e auditoria.
+1. acessar a fonte oficial;
+2. selecionar o período compatível com o projeto;
+3. baixar os arquivos sem alterar seu conteúdo;
+4. registrar o nome e a origem dos arquivos;
+5. armazenar os dados brutos no volume do Databricks;
+6. carregar os arquivos na camada Bronze;
+7. acrescentar metadados de rastreabilidade;
+8. comparar as quantidades de registros antes e depois da gravação;
+9. preservar as fontes brutas para permitir reprocessamento e auditoria;
+10. tratar e validar os dados nas camadas Silver e Gold.
 
----
-
-## 7. Licenças e condições de utilização
-
-As licenças e condições de utilização serão verificadas individualmente nas páginas oficiais. O projeto utilizará exclusivamente dados públicos e agregados, mantendo a identificação da fonte e a data de acesso.
-
-Não serão utilizados dados pessoais, confidenciais ou pertencentes a empresas sem autorização.
+As gravações utilizaram formato Delta e sobrescrita controlada, permitindo a reexecução do pipeline sem duplicação de registros.
 
 ---
 
-## 8. Registro das decisões
+## 9. Decisões finais
 
-| Data | Decisão | Justificativa |
-|---|---|---|
-| [Preencher] | Utilizar dados da PREVIC, SUSEP e IBGE | As fontes permitem estudar os segmentos fechado, aberto e o contexto socioeconômico |
-| [Preencher] | Não utilizar dados do INSS | O escopo está restrito à previdência complementar |
-| [Preencher] | Manter aberta a definição final dos períodos | Os períodos comuns dependerão da disponibilidade e compatibilidade das bases |
+| Decisão | Justificativa |
+|---|---|
+| Utilizar dados da PREVIC, SUSEP e IBGE | As fontes permitem analisar a previdência complementar fechada, a previdência aberta e o contexto socioeconômico |
+| Não utilizar dados do INSS | O escopo está restrito à previdência complementar |
+| Analisar a previdência fechada em âmbito nacional | As bases utilizadas não permitem identificar com segurança a residência dos participantes por UF |
+| Aplicar as projeções somente à previdência aberta | Os dados agregados da SUSEP e do IBGE possuem recorte compatível por UF e ano |
+| Utilizar o PGBL como produto de referência | O produto possui aderência ao objetivo de simular acumulação e renda complementar |
+| Utilizar 2025 como ano de referência das projeções | É o período final comum adotado nas bases utilizadas |
+| Adotar horizontes de 10, 20 e 30 anos | Os horizontes permitem comparar o efeito do tempo de acumulação |
+| Adotar cenários reais de 2%, 4% e 6% ao ano | Os cenários conservador, base e otimista permitem comparar a sensibilidade dos resultados à rentabilidade |
 
-Este documento será atualizado durante o desenvolvimento do MVP conforme os arquivos forem analisados e as decisões técnicas forem tomadas.
+---
+
+## 10. Condições de utilização
+
+O projeto utiliza exclusivamente dados públicos e agregados, mantendo a identificação das fontes. Os resultados possuem finalidade acadêmica e não devem ser interpretados como previsões individuais, garantias de benefício ou recomendações financeiras.
