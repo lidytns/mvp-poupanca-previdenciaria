@@ -149,9 +149,67 @@ A camada Bronze contém 17 tabelas Delta:
 
 Os dados foram mantidos próximos à estrutura original. Arquivos sem cabeçalho ou com formatação especial tiveram sua estrutura preservada para tratamento posterior.
 
+<details>
+<summary><strong>Ver evidências da camada Bronze</strong></summary>
+
+### Arquivos disponíveis no volume
+
+![Arquivos de origem da camada Bronze](docs/images/bronze_arquivos_origem.png)
+
+### Validação dos arquivos carregados
+
+![Validação dos arquivos da camada Bronze](docs/images/bronze_validacao_arquivos.png)
+
+### Validação das tabelas persistidas
+
+![Validação das tabelas da camada Bronze](docs/images/bronze_validacao_tabelas.png)
+
+### Inventário do catálogo
+
+![Inventário das tabelas da camada Bronze](docs/images/bronze_inventario_catalogo.png)
+
+### Resultado final da ingestão
+
+![Resultado final da camada Bronze](docs/images/bronze_resultado_final.png)
+
+</details>
+
 ### 8.2 Camada Silver
 
 A camada Silver contém 11 tabelas tratadas. Nessa etapa foram realizadas padronização dos nomes das colunas, conversão de tipos, normalização de valores monetários, tratamento das estruturas dos arquivos do IBGE e identificação dos campos das bases da PREVIC.
+
+<details>
+<summary><strong>Ver evidências da camada Silver</strong></summary>
+
+### Dados padronizados
+
+![Dados padronizados na camada Silver](docs/images/silver_dados_padronizados.png)
+
+### Validação da base DSI
+
+![Validação da base DSI](docs/images/silver_validacao_dsi.png)
+
+### Validação da base SUSEP
+
+![Validação da base SUSEP](docs/images/silver_validacao_susep.png)
+
+### Gravação da tabela SUSEP
+
+![Gravação da tabela SUSEP na camada Silver](docs/images/silver_gravacao_susep.png)
+
+### Validação dos dados de rendimento
+
+![Validação dos dados de rendimento](docs/images/silver_validacao_rendimento.png)
+
+### Validação dos dados populacionais
+
+![Validação dos dados populacionais](docs/images/silver_validacao_populacao.png)
+
+### Inventário final
+
+![Inventário final da camada Silver](docs/images/silver_inventario_final.png)
+
+</details>
 
 ### 8.3 Camada Gold
 
@@ -166,6 +224,31 @@ A camada Gold contém sete tabelas analíticas:
 | `movimentacao_plano_entidade_fechada_2025` | Plano e entidade | Entradas, saídas, saldos e flags de qualidade |
 | `cenarios_reposicao_renda_2025` | UF, horizonte e cenário | Memória detalhada das projeções |
 | `resumo_cenarios_reposicao_uf` | UF e horizonte | Comparação entre os três cenários |
+
+<details>
+<summary><strong>Ver evidências da camada Gold</strong></summary>
+
+### Validação dos indicadores da previdência aberta
+
+![Validação da previdência aberta na camada Gold](docs/images/gold_validacao_previdencia_aberta.png)
+
+### Validação das movimentações da previdência fechada
+
+![Validação das movimentações da previdência fechada](docs/images/gold_validacao_movimentacoes.png)
+
+### Premissas dos cenários
+
+![Premissas utilizadas nos cenários](docs/images/gold_premissas_cenarios.png)
+
+### Inventário final
+
+![Inventário final da camada Gold](docs/images/gold_inventario_final.png)
+
+### Conclusão da modelagem
+
+![Conclusão da modelagem da camada Gold](docs/images/gold_conclusao_modelagem.png)
+
+</details>
 
 ## 9. Processo de carga e transformação
 
@@ -343,6 +426,38 @@ As projeções foram realizadas exclusivamente para a previdência complementar 
 
 Os resultados completos, os gráficos e as respostas às perguntas de negócio estão disponíveis no notebook `notebooks/04_analise_resultados.ipynb`.
 
+### 14.1 Contexto socioeconômico da Região Sudeste
+
+![Evolução do rendimento médio mensal por UF](docs/images/analise_rendimento_uf.png)
+
+![Evolução da população por UF](docs/images/analise_populacao_uf.png)
+
+### 14.2 Previdência complementar aberta
+
+![Comparação entre produtos de previdência aberta em 2025](docs/images/analise_produtos_2025.png)
+
+![Indicadores do PGBL por UF](docs/images/analise_indicadores_pgbl_uf.png)
+
+![Evolução das contribuições e dos resgates](docs/images/analise_evolucao_contribuicoes_resgates.png)
+
+### 14.3 Perfil da previdência complementar fechada
+
+![Composição da população da previdência complementar fechada](docs/images/analise_composicao_previdencia_fechada.png)
+
+![Distribuição por sexo e situação no plano](docs/images/analise_sexo_situacao.png)
+
+![Distribuição da população por faixa etária](docs/images/analise_faixa_etaria.png)
+
+![Distribuição etária por situação no plano](docs/images/analise_faixa_etaria_situacao.png)
+
+![Pirâmide etária da previdência complementar fechada](docs/images/analise_piramide_etaria.png)
+
+### 14.4 Cenários de reposição de renda
+
+![Taxa de reposição por UF, horizonte e cenário](docs/images/analise_taxa_reposicao.png)
+
+![Síntese dos resultados por horizonte](docs/images/analise_sintese_horizontes.png)
+
 ## 15. Conclusão
 
 O projeto demonstrou a aplicação da Arquitetura Medalhão na integração de dados públicos da PREVIC, SUSEP e IBGE. As camadas Bronze, Silver e Gold permitiram preservar os dados originais, tratar estruturas heterogêneas, controlar problemas de qualidade e produzir informações analíticas rastreáveis.
@@ -413,7 +528,7 @@ Os caminhos dos arquivos e demais configurações dependentes do ambiente devem 
 ```text
 mvp-poupanca-previdenciaria/
 ├── docs/
-│   ├── images/
+│   ├── images/                 # evidências visuais do pipeline e das análises
 │   └── fontes_e_coleta.md
 ├── notebooks/
 │   ├── 01_ingestao_bronze.ipynb
